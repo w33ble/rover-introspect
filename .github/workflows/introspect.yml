@@ -17,7 +17,7 @@ jobs:
       with:
         federated: true
         subgraph: products
-        server: http://localhost:3000/
+        server: http://apollo:3000/
       env:
         APOLLO_KEY: ${{ secrets.APOLLO_KEY }}
     - run: cat ${{ steps.introspect.outputs.path }}
