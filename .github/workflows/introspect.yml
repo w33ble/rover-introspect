@@ -1,0 +1,23 @@
+name: "introspect"
+on:
+  push:
+    branches:
+      - main
+jobs:
+  introspect:
+    runs-on: ubuntu-latest
+    services:
+      apollo:
+        image: danielsinclair/apollo-example
+    steps:
+    - uses: actions/checkout@v2
+    - name: rover introspect
+      id: introspect
+      uses: ./
+      with:
+        federated: true
+        subgraph: products
+        server: http://localhost:3000/
+      env:
+        APOLLO_KEY: ${{ secrets.APOLLO_KEY }}
+    - run: cat ${{ steps.introspect.outputs.path }}
