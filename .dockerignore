@@ -1,3 +1,4 @@
+node_modules
 npm-debug.log
 Dockerfile*
 docker-compose*
@@ -6,4 +7,5 @@ docker-compose*
 .gitignore
 README.md
 LICENSE
+CODEOWNERS
 .vscode
