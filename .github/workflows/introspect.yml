@@ -10,6 +10,8 @@ jobs:
       apollo:
         image: danielsinclair/apollo-example
     steps:
+    - name: health check
+      run: curl http://apollo:3000/.well-known/apollo/server-health
     - uses: actions/checkout@v2
     - name: rover introspect
       id: introspect
