@@ -12,9 +12,6 @@
     "url": "https://github.com/DanielSinclair/rover-introspect-action/issues"
   },
   "homepage": "https://github.com/DanielSinclair/rover-introspect-action#readme",
-  "scripts": {
-    "start": "node index.js"
-  },
   "dependencies": {
     "@actions/artifact": "^0.5.2",
     "@actions/core": "^1.4.0",
