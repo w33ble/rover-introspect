@@ -4,7 +4,7 @@ const exec = require('@actions/exec')
 const artifact = require('@actions/artifact')
 const fs = require('fs')
 
-const uploadArtifact = async = (file, schema) => {
+const uploadArtifact = async (file, schema) => {
   fs.writeFileSync(file, schema)
   const client = artifact.create()
   const options = { continueOnError: false }
