@@ -6,6 +6,9 @@ on:
 jobs:
   introspect:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: introspect
     services:
       apollo:
         image: danielsinclair/apollo-example
