@@ -4,6 +4,10 @@ A GitHub Action to introspect a server and save the schema using the Apollo [Rov
 
 Depends upon service containers (published to a registry) to communicate with the Apollo service because of the lack of background job support in GitHub Actions.
 
+Works in tandem with:
+- [rover-fetch](https://github.com/DanielSinclair/rover-fetch)
+- [rover-publish](https://github.com/DanielSinclair/rover-publish)
+
 ## inputs
 | name        | default | required               |
 | :---------- | :------ | :--------------------- |
@@ -25,7 +29,7 @@ jobs:
       apollo:
         image: danielsinclair/apollo-example
     steps:
-    - uses: danielsinclair/rover-introspect-action@v1
+    - uses: danielsinclair/rover-introspect@v1
       with:
         federated: true
         subgraph: products
