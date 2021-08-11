@@ -3,12 +3,18 @@ const core = require('@actions/core')
 const exec = require('@actions/exec')
 const artifact = require('@actions/artifact')
 const fs = require('fs')
+const path = require('path')
 
-const uploadArtifact = async (file, schema) => {
-  fs.writeFileSync(file, schema)
+const uploadArtifact = async (name, path) => {
   const client = artifact.create()
   const options = { continueOnError: false }
-  return await client.uploadArtifact(file, [file], __dirname, options)
+  return await client.uploadArtifact(name, [path], __dirname, options)
+}
+
+const saveFile = (name, schema) => {
+  const file = path.join(__dirname, `/${name}`)
+  fs.writeFileSync(file, schema)
+  return file
 }
 
 const rover = async (args = []) => {
@@ -25,18 +31,24 @@ const setOutput = (schema) => {
   core.setOutput('schema', encoded)
 }
 
+const getInput = () => {
+  const federated = core.getInput('federated')
+  const subgraph = core.getInput('subgraph')
+  const server = core.getInput('server')
+  return { federated, subgraph, server }
+}
+
 async function run() {
   try {
-    const federated = core.getInput('federated')
-    const subgraph = core.getInput('subgraph')
-    const server = core.getInput('server')
+    const { federated, subgraph, server } = getInput()
     const schema = await rover([
       federated ? 'subgraph' : 'graph',
       'introspect',
       server
     ])
     const filename = federated ? `${subgraph}.graphql` : `graph.graphql`
-    await uploadArtifact(filename, schema)
+    const file = saveFile(filename, schema)
+    await uploadArtifact(filename, file)
     setOutput(schema)
   } catch (error) {
     console.error(error)
