@@ -27,3 +27,12 @@ jobs:
       with:
         name: products.graphql
         path: ${{ steps.introspect.outputs.path }}
+  artifact:
+    needs: introspect
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/download-artifact@v2
+      with:
+        name: products.graphql
+    - run: cat products.graphql
