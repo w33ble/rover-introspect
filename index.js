@@ -20,7 +20,7 @@ const rover = async (args = []) => {
   return schema
 }
 
-const setOutput = (path, schema) => {
+const setOutput = (schema) => {
   const encoded = Buffer.from(schema).toString('base64')
   core.setOutput('schema', encoded)
 }
@@ -37,7 +37,7 @@ async function run() {
     ])
     const filename = federated ? `${subgraph}.graphql` : `graph.graphql`
     await uploadArtifact(filename, schema)
-    setOutput(path, schema)
+    setOutput(schema)
   } catch (error) {
     console.error(error)
     core.setFailed(error.message)

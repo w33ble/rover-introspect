@@ -17,8 +17,6 @@ inputs:
 outputs:
   schema:
     description: 'base64 encoded fetched SDL'
-  path:
-    description: 'path of the .graphql file'
 runs:
   using: 'docker'
   image: 'Dockerfile'
