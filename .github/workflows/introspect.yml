@@ -23,7 +23,6 @@ jobs:
         server: http://apollo:3000/
       env:
         APOLLO_KEY: ${{ secrets.APOLLO_KEY }}
-    - run: cat ${{ steps.introspect.outputs.path }}
     - uses: actions/upload-artifact@v2
       with:
         name: products.graphql
