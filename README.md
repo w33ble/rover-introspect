@@ -15,7 +15,6 @@ Depends upon service containers (published to a registry) to communicate with th
 | name   | description                |
 | :----- | :------------------------- |
 | schema | base64 encoded fetched SDL |
-| path   | graphql file path          |
 
 ## Usage
 ```
@@ -34,3 +33,5 @@ jobs:
       env:
         APOLLO_KEY: ${{ secrets.APOLLO_KEY }}
 ```
+
+Introspected schema is saved to `products.graphql` artifact
