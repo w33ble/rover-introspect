@@ -29,7 +29,7 @@ async function run() {
       'introspect',
       server
     ])
-    const path = federated ? `./${subgraph}.graphql` : `./graph.graphql`
+    const path = federated ? `/${subgraph}.graphql` : `/graph.graphql`
     setOutput(path, schema)
   } catch (error) {
     console.error(error)
