@@ -1,7 +1,7 @@
-name: 'Apollo Rover Introspect Action'
+name: 'Apollo Rover Introspection Action'
 description: 'introspect an Apollo server'
 branding:
-  icon: 'share-2'  
+  icon: 'share-2'
   color: 'blue'
 inputs:
   federated:

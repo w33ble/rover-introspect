@@ -1,4 +1,6 @@
-# Apollo Rover Introspect Action
+# Apollo Rover Introspection Action
+
+This is a hopefully temporary fork of DanielSinclair's [rover-introspect](https://github.com/DanielSinclair/rover-introspect).
 
 A GitHub Action to introspect a server and save the schema using the Apollo [Rover CLI](https://www.apollographql.com/docs/rover/).
 
@@ -29,7 +31,7 @@ jobs:
       apollo:
         image: danielsinclair/apollo-example
     steps:
-    - uses: danielsinclair/rover-introspect@v1
+    - uses: w33ble/rover-introspect
       with:
         federated: true
         subgraph: products
