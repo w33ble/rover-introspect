@@ -34,10 +34,15 @@ const setOutput = (schema) => {
 const parseHeaders = (rawHeaders) => {
   if (rawHeaders === '') return []
 
-  const headers = JSON.parse(rawHeaders)
-  return Object.entries(headers).reduce((acc, header) => {
-    return acc.concat(['--header', header.join(':')])
-  }, [])
+  try {
+    const headers = JSON.parse(rawHeaders)
+    return Object.entries(headers).reduce((acc, header) => {
+      return acc.concat(['--header', header.join(':')])
+    }, [])
+  } catch(error) {
+    core.error('Failed to parse headers input, is it valid JSON?')
+    throw error
+  }
 }
 
 const getInput = () => {
