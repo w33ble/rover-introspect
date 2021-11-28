@@ -31,31 +31,27 @@ const setOutput = (schema) => {
   core.setOutput('schema', encoded)
 }
 
-const parseHeaders = (rawHeaders) => {
-  if (rawHeaders === '') return []
-
-  try {
-    const headers = JSON.parse(rawHeaders)
-    return Object.entries(headers).reduce((acc, header) => {
-      return acc.concat(['--header', header.join(':')])
-    }, [])
-  } catch(error) {
-    core.error('Failed to parse headers input, is it valid JSON?')
-    throw error
-  }
-}
-
 const getInput = () => {
   const federated = core.getInput('federated')
   const subgraph = core.getInput('subgraph')
   const server = core.getInput('server')
-  const rawHeaders = core.getInput('headers')
-  return { federated, subgraph, server, headers: parseHeaders(rawHeaders) }
+  const headersJSON = core.getInput('headers')
+  return { federated, subgraph, server, headersJSON }
+}
+
+const parseHeaders = (headersJSON = "{}") => {
+  try {
+    const headers = JSON.parse(headersJSON)
+    return Object.entries(headers).map(([key, value]) => `--header ${key}:${value}`)
+  } catch(error) {
+    throw new Error('Failed to parse headers input, is it valid JSON?')
+  }
 }
 
 async function run() {
   try {
-    const { federated, subgraph, server, headers } = getInput()
+    const { federated, subgraph, server, headersJSON } = getInput()
+    const headers = parseHeaders(headersJSON)
     const schema = await rover([
       federated ? 'subgraph' : 'graph',
       'introspect',
